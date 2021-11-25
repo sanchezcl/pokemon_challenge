@@ -13,6 +13,5 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/', 'InfoController@info');
+$router->get('/is_alive', 'InfoController@isAlive');
