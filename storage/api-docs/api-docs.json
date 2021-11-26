@@ -1,0 +1,78 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Agree Challenge",
+        "description": "This API is an Agree's challege.",
+        "contact": {
+            "name": "Developer",
+            "email": "ydobon@tset.test"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "app info"
+                ],
+                "operationId": "/",
+                "responses": {
+                    "200": {
+                        "description": "Returns basic app info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InfoData"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/is_alive": {
+            "get": {
+                "tags": [
+                    "app info"
+                ],
+                "operationId": "/is_alive",
+                "responses": {
+                    "204": {
+                        "description": "check if the app is alive"
+                    },
+                    "504": {
+                        "description": "Server not available"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "InfoData": {
+                "properties": {
+                    "app_name": {
+                        "type": "string",
+                        "example": "app name"
+                    },
+                    "framework": {
+                        "type": "string",
+                        "example": "Lumen (8.3.1) (Laravel Components ^8.0)"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "example": "UTC"
+                    },
+                    "current_datetime": {
+                        "type": "datetime",
+                        "example": "2021-11-25T23:19:09.814204Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "InfoData"
+                }
+            }
+        }
+    }
+}
