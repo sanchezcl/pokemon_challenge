@@ -15,3 +15,7 @@
 
 $router->get('/', 'InfoController@info');
 $router->get('/is_alive', 'InfoController@isAlive');
+
+$router->get('/card_rarities', 'CardRarityController@index');
+$router->get('/expansion_set', 'ExpansionSetController@index');
+$router->get('/pokemon_type', 'PokemonTypeController@index');

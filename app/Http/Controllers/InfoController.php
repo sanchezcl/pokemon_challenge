@@ -21,7 +21,7 @@ class InfoController extends Controller
      * @OA\Get(
      *     path="/",
      *     operationId="/",
-     *     tags={"app info"},
+     *     tags={"App info"},
      *     @OA\Response(
      *         response="200",
      *         description="Returns basic app info",
@@ -64,8 +64,7 @@ class InfoController extends Controller
     }
 
     /**
-     * @OA\Components(
-     *     @OA\Schema(
+     * @OA\Schema(
      *         schema="InfoData",
      *         @OA\Xml(name="InfoData"),
      *         @OA\Property(property="app_name", type="string", example="app name"),
@@ -73,6 +72,5 @@ class InfoController extends Controller
      *         @OA\Property(property="timezone", type="string", example="UTC"),
      *         @OA\Property(property="current_datetime", type="datetime", example="2021-11-25T23:19:09.814204Z"),
      *     )
-     * )
      */
 }

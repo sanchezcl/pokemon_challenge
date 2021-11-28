@@ -10,10 +10,50 @@
         "version": "1.0"
     },
     "paths": {
+        "/card_rarities": {
+            "get": {
+                "tags": [
+                    "CardRarity"
+                ],
+                "operationId": "/card_rarities",
+                "responses": {
+                    "200": {
+                        "description": "List rarity card avaliable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/enumJson"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/expansion_set": {
+            "get": {
+                "tags": [
+                    "ExpansionSet"
+                ],
+                "operationId": "/expansion_set",
+                "responses": {
+                    "200": {
+                        "description": "List expansions set card avaliable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/enumJson"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/": {
             "get": {
                 "tags": [
-                    "app info"
+                    "App info"
                 ],
                 "operationId": "/",
                 "responses": {
@@ -45,10 +85,46 @@
                     }
                 }
             }
+        },
+        "/pokemon_type": {
+            "get": {
+                "tags": [
+                    "PokemonType"
+                ],
+                "operationId": "/pokemon_type",
+                "responses": {
+                    "200": {
+                        "description": "List pokemon types avaliable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/enumJson"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "enumJson": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "item name"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "InfoData"
+                }
+            },
             "InfoData": {
                 "properties": {
                     "app_name": {
