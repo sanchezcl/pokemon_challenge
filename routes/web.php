@@ -19,3 +19,15 @@ $router->get('/is_alive', 'InfoController@isAlive');
 $router->get('/card_rarities', 'CardRarityController@index');
 $router->get('/expansion_set', 'ExpansionSetController@index');
 $router->get('/pokemon_type', 'PokemonTypeController@index');
+
+$router->group(['prefix' => 'cards'], function () use ($router){
+    $router->get('/', ['as' => 'card.index', 'uses' => 'CardController@index']);
+    $router->post('/', ['as' => 'card.store', 'uses' => 'CardController@store']);
+    $router->get('/{id}', ['as' => 'card.show', 'uses' => 'CardController@show']);
+    $router->put('/{id}', ['as' => 'card.update', 'uses' => 'CardController@update']);
+    $router->delete('/{id}', ['as' => 'card.delete', 'uses' => 'CardController@destroy']);
+
+//    $router->patch('/{id}/take', ['as' => 'take_card', 'uses' => 'CardManagerController@take']);
+//    $router->patch('/{id}/return', ['as' => 'return_card', 'uses' => 'CardManagerController@returnCard']);
+//    $router->patch('/return_all', ['as' => 'return_all', 'uses' => 'CardManagerController@returnAllCards']);
+});

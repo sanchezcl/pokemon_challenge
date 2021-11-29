@@ -47,7 +47,7 @@ class InfoController extends Controller
      * @OA\Get(
      *     path="/is_alive",
      *     operationId="/is_alive",
-     *     tags={"app info"},
+     *     tags={"App info"},
      *     @OA\Response(
      *         response="204",
      *         description="check if the app is alive",
@@ -63,14 +63,4 @@ class InfoController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @OA\Schema(
-     *         schema="InfoData",
-     *         @OA\Xml(name="InfoData"),
-     *         @OA\Property(property="app_name", type="string", example="app name"),
-     *         @OA\Property(property="framework", type="string", example="Lumen (8.3.1) (Laravel Components ^8.0)"),
-     *         @OA\Property(property="timezone", type="string", example="UTC"),
-     *         @OA\Property(property="current_datetime", type="datetime", example="2021-11-25T23:19:09.814204Z"),
-     *     )
-     */
 }

@@ -71,6 +71,8 @@ class Handler extends ExceptionHandler
             $message = 'Forbidden';
         } elseif ($exception instanceof MethodNotAllowedHttpException) {
             $message = 'Method not allow';
+        } elseif ($exception instanceof ValidationException) {
+            $message = $exception->validator->getMessageBag();
         } elseif ($exception instanceof \PDOException || $exception instanceof QueryException) {
             $message = 'internal error';
             $status_code = Response::HTTP_INTERNAL_SERVER_ERROR;

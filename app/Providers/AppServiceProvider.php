@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\CardMysqlRepository;
+use App\Repositories\CardRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            CardRepositoryInterface::class,
+            CardMysqlRepository::class
+        );
     }
 }

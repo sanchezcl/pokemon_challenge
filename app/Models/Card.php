@@ -31,4 +31,9 @@ class Card extends Model
     {
         return $this->belongsToMany(PokemonType::class);
     }
+
+    public function getPriceAttribute($value)
+    {
+        return floatval($value);
+    }
 }

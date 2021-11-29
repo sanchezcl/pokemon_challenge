@@ -10,6 +10,256 @@
         "version": "1.0"
     },
     "paths": {
+        "/cards": {
+            "post": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Create cards",
+                "description": "Create cards",
+                "requestBody": {
+                    "description": "Create card",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "health_points",
+                                    "expansion_set",
+                                    "pokemon_type",
+                                    "card_rarity",
+                                    "price",
+                                    "image_url"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "dito"
+                                    },
+                                    "health_points": {
+                                        "type": "integer",
+                                        "example": "50"
+                                    },
+                                    "is_first_edition": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "is_taken": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "expansion_set": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "pokemon_type": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": "10"
+                                        }
+                                    },
+                                    "card_rarity": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "example": "10.50"
+                                    },
+                                    "image_url": {
+                                        "type": "url",
+                                        "format": "url",
+                                        "example": "www.pokeimage.com/01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Card"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/{id}": {
+            "get": {
+                "tags": [
+                    "Cards"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Card ID",
+                        "required": true,
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Card"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Updates a Card",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create card",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "health_points",
+                                    "expansion_set",
+                                    "pokemon_type",
+                                    "card_rarity",
+                                    "price",
+                                    "image_url"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "dito"
+                                    },
+                                    "health_points": {
+                                        "type": "integer",
+                                        "example": "50"
+                                    },
+                                    "is_first_edition": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "is_taken": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "expansion_set": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "pokemon_type": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": "10"
+                                        }
+                                    },
+                                    "card_rarity": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "example": "10.50"
+                                    },
+                                    "image_url": {
+                                        "type": "url",
+                                        "format": "url",
+                                        "example": "www.pokeimage.com/01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Card"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Cards"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Card ID",
+                        "required": true,
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "date",
+                                            "example": "2021-11-29"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/card_rarities": {
             "get": {
                 "tags": [
@@ -73,7 +323,7 @@
         "/is_alive": {
             "get": {
                 "tags": [
-                    "app info"
+                    "App info"
                 ],
                 "operationId": "/is_alive",
                 "responses": {
@@ -147,6 +397,58 @@
                 "type": "object",
                 "xml": {
                     "name": "InfoData"
+                }
+            },
+            "Card": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "dito"
+                    },
+                    "health_points": {
+                        "type": "integer",
+                        "example": "50"
+                    },
+                    "is_first_edition": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "is_taken": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "expansion_set": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "pokemon_type": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "Fire"
+                        }
+                    },
+                    "card_rarity": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": "10.50"
+                    },
+                    "image_url": {
+                        "type": "url",
+                        "format": "url",
+                        "example": "www.pokeimage.com/01"
+                    },
+                    "created_at": {
+                        "type": "date",
+                        "example": "2021-11-29"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Card"
                 }
             }
         }
