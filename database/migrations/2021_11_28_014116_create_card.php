@@ -17,11 +17,11 @@ class CreateCard extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->integer('health_points');
-            $table->boolean('is_first_edition');
+            $table->boolean('is_first_edition')->default(false);
             $table->boolean('is_taken')->default(false);
             $table->unsignedBigInteger('expansion_set_id');
             $table->unsignedBigInteger('card_rarity_id');
-            $table->bigInteger('price');
+            $table->unsignedDecimal('price');
             $table->string('image_url')->unique();
             $table->timestamps();
             $table->softDeletes();
