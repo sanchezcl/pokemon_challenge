@@ -59,4 +59,25 @@ class CardMysqlRepository implements CardRepositoryInterface
         $card->pokemonTypes()->detach($card->pokemonTypes->pluck('id'));
         return Card::destroy($id);
     }
+
+    public function takeCard($id)
+    {
+        $card = $this->findById($id);
+        $card->is_taken = true;
+        $card->save();
+        return $card;
+    }
+
+    public function returnCard($id)
+    {
+        $card = $this->findById($id);
+        $card->is_taken = false;
+        $card->save();
+        return $card;
+    }
+
+    public function returnAllCards()
+    {
+        return Card::where('is_taken', true)->update(['is_taken' => false]);
+    }
 }

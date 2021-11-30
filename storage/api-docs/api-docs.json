@@ -245,6 +245,103 @@
                 }
             }
         },
+        "/cards/{id}/take": {
+            "patch": {
+                "tags": [
+                    "Manage Cards"
+                ],
+                "summary": "Manage cards",
+                "description": "Take cards",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Card ID",
+                        "required": true,
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Card"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/{id}/return": {
+            "patch": {
+                "tags": [
+                    "Manage Cards"
+                ],
+                "summary": "Manage cards",
+                "description": "Return cards",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Card ID",
+                        "required": true,
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Card"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/{id}/return_all": {
+            "patch": {
+                "tags": [
+                    "Manage Cards"
+                ],
+                "summary": "Manage cards",
+                "description": "Return all cards",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cards returned."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/card_rarities": {
             "get": {
                 "tags": [
@@ -442,6 +539,38 @@
                     "next": {
                         "type": "url",
                         "example": "http://agm.test/cards?page=2"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PageLinks"
+                }
+            },
+            "PageMeta": {
+                "properties": {
+                    "current_page": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "from": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "last_page": {
+                        "type": "integer",
+                        "example": "10"
+                    },
+                    "per_page": {
+                        "type": "integer",
+                        "example": "5"
+                    },
+                    "to": {
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": "10"
                     }
                 },
                 "type": "object",

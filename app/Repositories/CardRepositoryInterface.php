@@ -15,4 +15,10 @@ interface CardRepositoryInterface
     public function update(int $id, array $card_data);
 
     public function findAll($queries);
+
+    public function takeCard($id);
+
+    public function returnCard($id);
+
+    public function returnAllCards();
 }

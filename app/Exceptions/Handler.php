@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Http\Resources\ErrorResource;
+use http\Exception\UnexpectedValueException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -63,14 +64,13 @@ class Handler extends ExceptionHandler
             $status_code = Response::HTTP_INTERNAL_SERVER_ERROR;
         } elseif ($exception instanceof MethodNotAllowedHttpException) {
             $status_code = Response::HTTP_METHOD_NOT_ALLOWED;
+            $message = "Method not allowed";
         } elseif ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
             $status_code = Response::HTTP_NOT_FOUND;
             $message = 'resource ' . $this->getNotFoundMessage($exception) . ' not found';
         } elseif ($exception instanceof AuthorizationException) {
             $status_code = Response::HTTP_FORBIDDEN;
             $message = 'Forbidden';
-        } elseif ($exception instanceof MethodNotAllowedHttpException) {
-            $message = 'Method not allow';
         } elseif ($exception instanceof ValidationException) {
             $message = $exception->validator->getMessageBag();
         } elseif ($exception instanceof \PDOException || $exception instanceof QueryException) {

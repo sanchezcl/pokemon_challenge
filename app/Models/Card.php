@@ -20,6 +20,11 @@ class Card extends Model
         'image_url',
     ];
 
+    protected $casts = [
+        'is_first_edition' => 'boolean',
+        'is_taken' => 'boolean',
+    ];
+
     protected $allowed_sorts = [
         'name',
         'health_points',
