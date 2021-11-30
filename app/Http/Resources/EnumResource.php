@@ -16,3 +16,12 @@ class EnumResource extends JsonResource
         ];
     }
 }
+
+/**
+ *     @OA\Schema(
+ *         schema="enumJson",
+ *         @OA\Xml(name="InfoData"),
+ *         @OA\Property(property="id", type="integer", example="1"),
+ *         @OA\Property(property="name", type="string", example="item name"),
+ *     )
+ */

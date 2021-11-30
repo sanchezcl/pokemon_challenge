@@ -11,6 +11,93 @@
     },
     "paths": {
         "/cards": {
+            "get": {
+                "tags": [
+                    "Cards"
+                ],
+                "parameters": [
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Query filters: pokemon name",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "charizard"
+                    },
+                    {
+                        "name": "filter[is_taken]",
+                        "in": "query",
+                        "description": "Query filters: if is taken (0 = false, 1 = true)",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 0
+                    },
+                    {
+                        "name": "filter[expansionSet]",
+                        "in": "query",
+                        "description": "Query filters: espansion set name",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "base set 2"
+                    },
+                    {
+                        "name": "filter[pokemonTypes]",
+                        "in": "query",
+                        "description": "Query filters: pokemon type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "fire"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sorts: separated with commas and colon to set the direction, with no direction default is asc. Sorts alowed name, health_points, price, is_first_edition, is_taken",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "name,price:desc,is_taken:asc"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Card"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/PageLinks"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Cards"
@@ -23,58 +110,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "name",
-                                    "health_points",
-                                    "expansion_set",
-                                    "pokemon_type",
-                                    "card_rarity",
-                                    "price",
-                                    "image_url"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "dito"
-                                    },
-                                    "health_points": {
-                                        "type": "integer",
-                                        "example": "50"
-                                    },
-                                    "is_first_edition": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    },
-                                    "is_taken": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    },
-                                    "expansion_set": {
-                                        "type": "integer",
-                                        "example": "1"
-                                    },
-                                    "pokemon_type": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "integer",
-                                            "example": "10"
-                                        }
-                                    },
-                                    "card_rarity": {
-                                        "type": "integer",
-                                        "example": "1"
-                                    },
-                                    "price": {
-                                        "type": "number",
-                                        "example": "10.50"
-                                    },
-                                    "image_url": {
-                                        "type": "url",
-                                        "format": "url",
-                                        "example": "www.pokeimage.com/01"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/CardRequest"
                             }
                         }
                     }
@@ -153,58 +189,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "name",
-                                    "health_points",
-                                    "expansion_set",
-                                    "pokemon_type",
-                                    "card_rarity",
-                                    "price",
-                                    "image_url"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "dito"
-                                    },
-                                    "health_points": {
-                                        "type": "integer",
-                                        "example": "50"
-                                    },
-                                    "is_first_edition": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    },
-                                    "is_taken": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    },
-                                    "expansion_set": {
-                                        "type": "integer",
-                                        "example": "1"
-                                    },
-                                    "pokemon_type": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "integer",
-                                            "example": "10"
-                                        }
-                                    },
-                                    "card_rarity": {
-                                        "type": "integer",
-                                        "example": "1"
-                                    },
-                                    "price": {
-                                        "type": "number",
-                                        "example": "10.50"
-                                    },
-                                    "image_url": {
-                                        "type": "url",
-                                        "format": "url",
-                                        "example": "www.pokeimage.com/01"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/CardRequest"
                             }
                         }
                     }
@@ -249,7 +234,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "date",
-                                            "example": "2021-11-29"
+                                            "example": "Resource deleted"
                                         }
                                     },
                                     "type": "object"
@@ -359,20 +344,61 @@
     },
     "components": {
         "schemas": {
-            "enumJson": {
+            "CardRequest": {
+                "required": [
+                    "name",
+                    "health_points",
+                    "expansion_set",
+                    "pokemon_type",
+                    "card_rarity",
+                    "price",
+                    "image_url"
+                ],
                 "properties": {
-                    "id": {
+                    "name": {
+                        "type": "string",
+                        "example": "dito"
+                    },
+                    "health_points": {
+                        "type": "integer",
+                        "example": "50"
+                    },
+                    "is_first_edition": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "is_taken": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "expansion_set": {
                         "type": "integer",
                         "example": "1"
                     },
-                    "name": {
-                        "type": "string",
-                        "example": "item name"
+                    "pokemon_type": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": "10"
+                        }
+                    },
+                    "card_rarity": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": "10.50"
+                    },
+                    "image_url": {
+                        "type": "url",
+                        "format": "url",
+                        "example": "www.pokeimage.com/01"
                     }
                 },
                 "type": "object",
                 "xml": {
-                    "name": "InfoData"
+                    "name": "CardRequest"
                 }
             },
             "InfoData": {
@@ -397,6 +423,30 @@
                 "type": "object",
                 "xml": {
                     "name": "InfoData"
+                }
+            },
+            "PageLinks": {
+                "properties": {
+                    "first": {
+                        "type": "url",
+                        "example": "http://agm.test/cards?page=1"
+                    },
+                    "last": {
+                        "type": "url",
+                        "example": "http://agm.test/cards?page=10"
+                    },
+                    "prev": {
+                        "type": "url",
+                        "example": "null"
+                    },
+                    "next": {
+                        "type": "url",
+                        "example": "http://agm.test/cards?page=2"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PageLinks"
                 }
             },
             "Card": {
@@ -449,6 +499,22 @@
                 "type": "object",
                 "xml": {
                     "name": "Card"
+                }
+            },
+            "enumJson": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "item name"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "InfoData"
                 }
             }
         }

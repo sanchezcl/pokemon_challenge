@@ -18,15 +18,6 @@ class Controller extends BaseController
      * )
      */
 
-    /**
-     *     @OA\Schema(
-     *         schema="enumJson",
-     *         @OA\Xml(name="InfoData"),
-     *         @OA\Property(property="id", type="integer", example="1"),
-     *         @OA\Property(property="name", type="string", example="item name"),
-     *     )
-     */
-
 
     /**
      * @OA\Schema(
@@ -41,18 +32,29 @@ class Controller extends BaseController
 
     /**
      * @OA\Schema(
-     * @OA\Xml(name="Card"),
-     *       schema="Card",
-     *       @OA\Property(property="name", type="string", example="dito"),
-     *       @OA\Property(property="health_points", type="integer", example="50"),
-     *       @OA\Property(property="is_first_edition", type="boolean", example="true"),
-     *       @OA\Property(property="is_taken", type="boolean", example="true"),
-     *       @OA\Property(property="expansion_set", type="integer", example="1"),
-     *       @OA\Property(property="pokemon_type", type="array", @OA\Items(type="string", example="Fire"),),
-     *       @OA\Property(property="card_rarity", type="integer", example="1"),
-     *       @OA\Property(property="price", type="number", example="10.50"),
-     *       @OA\Property(property="image_url", type="url", format="url", example="www.pokeimage.com/01"),
-     *       @OA\Property(property="created_at", type="date", example="2021-11-29"),
-     * )
+     *    schema="PageLinks",
+     *    @OA\Xml(name="PageLinks"),
+     *    @OA\Property(property="first", type="url", example="http://agm.test/cards?page=1"),
+     *    @OA\Property(property="last", type="url", example="http://agm.test/cards?page=10"),
+     *    @OA\Property(property="prev", type="url", example="null"),
+     *    @OA\Property(property="next", type="url", example="http://agm.test/cards?page=2"),
+     *)
+     */
+
+    /**
+     * @OA\Schema(
+     *    schema="PageMeta",
+     *    @OA\Xml(name="PageLinks"),
+     *    @OA\Property(property="current_page", type="integer", example="1"),
+     *    @OA\Property(property="from", type="integer", example="1"),
+     *    @OA\Property(property="last_page", type="integer", example="10"),
+     *    @OA\Property(property="per_page", type="integer", example="5"),
+     *    @OA\Property(property="to", type="integer", example="0"),
+     *    @OA\Property(property="total", type="integer", example="10"),
+     *)
+     */
+
+    /**
+     *
      */
 }

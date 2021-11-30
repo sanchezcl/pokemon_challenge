@@ -13,4 +13,6 @@ interface CardRepositoryInterface
     public function deleteById(int $id);
 
     public function update(int $id, array $card_data);
+
+    public function findAll($queries);
 }

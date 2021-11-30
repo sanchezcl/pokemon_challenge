@@ -8,6 +8,20 @@ use App\Models\Card;
 
 class CardMysqlRepository implements CardRepositoryInterface
 {
+    const PAGE_SIZE = 10;
+
+    public function findAll($queries)
+    {
+        return Card::applyFilters($queries['filters'])
+            ->applyShorts($queries['sorts'])
+            ->paginate(
+                self::PAGE_SIZE,
+                ['*'],
+                'page',
+                $queries['page']
+            );
+    }
+
     public function create($data)
     {
         $card = new Card([
