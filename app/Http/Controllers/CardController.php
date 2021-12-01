@@ -15,6 +15,7 @@ use Illuminate\Validation\ValidationException;
 class CardController extends Controller
 {
 
+    const RESOURCE_DELETED_MESSAGE = 'Resource deleted.';
     private $repository;
 
     /**
@@ -103,17 +104,8 @@ class CardController extends Controller
     {
         $this->repository->deleteById($id);
         return response([
-            'message' => 'Resource deleted.',
+            'message' => self::RESOURCE_DELETED_MESSAGE,
         ], 202);
-    }
-
-    private function extractSorts($sorts)
-    {
-        $sorts = collect(explode(',', $sorts));
-        return $sorts->map(function ($item) {
-            $itemArr = explode(':', $item);
-            return $itemArr;
-        });
     }
 }
 

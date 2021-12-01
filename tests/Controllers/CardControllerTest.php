@@ -4,6 +4,7 @@ namespace Http\Controllers;
 
 use App\Http\Controllers\CardController;
 use App\Models\Card;
+use Illuminate\Support\Str;
 
 class CardControllerTest extends \TestCase
 {
@@ -12,18 +13,32 @@ class CardControllerTest extends \TestCase
      */
     public function testIndex()
     {
-        $this->markTestIncomplete('todo');
+        $this->call('GET', route('card.index', ), ['filter[name]' => 'charizard']);
+        $this->assertResponseOk();
+        $this->assertJson($this->response->content());
     }
 
     public function testStore()
     {
-        $this->markTestIncomplete('todo');
+        $params = [
+            "name" => "pokemon__test_name_" . Str::random(5),
+            "health_points" => 120,
+            "is_first_edition" => true,
+            "is_taken" => false,
+            "expansion_set" => 1,
+            "pokemon_type" => [4, 9],
+            "card_rarity" => 2,
+            "price" => 11.75,
+            "image_url" => "https://den-cards.pokellector.com/".Str::random(5)."/Ivysaur.BS.30.png"
+        ];
+        $this->call('POST', route('card.store'), $params);
+        $this->assertResponseStatus(201);
     }
 
     public function testShow()
     {
         $cards = Card::all()->random(2);
-        $cards->each(function($card){
+        $cards->each(function ($card) {
             $this->call('GET', route('card.show', ['id' => $card->id]));
             $responseRaw = $this->response->getContent();
             $response = json_decode($responseRaw, true);
@@ -52,11 +67,39 @@ class CardControllerTest extends \TestCase
 
     public function testUpdate()
     {
-        $this->markTestIncomplete('todo');
+        $card = Card::where('name', 'venusaur')->first();
+        $params = [
+            "name" => "venusaur",
+            "health_points" => 120,
+            "is_first_edition" => true,
+            "is_taken" => false,
+            "expansion_set" => 1,
+            "pokemon_type" => [4, 9],
+            "card_rarity" => 2,
+            "price" => 11.75,
+            "image_url" => "https://den-cards.pokellector.com/119/Ivysaur.BS.30.png"
+        ];
+        $this->call('PUT', route('card.update', ['id' => $card->id]), $params);
+        $responseRaw = $this->response->getContent();
+        $response = json_decode($responseRaw, true);
+
+        $this->assertResponseOk();
+        $this->assertEquals($card->id, $response['data']['id']);
+        $this->assertEquals($params['health_points'], $response['data']['health_points']);
     }
 
     public function testDestroy()
     {
-        $this->markTestIncomplete('todo');
+        $card = Card::all()->random(1)->first();
+        $this->call('DELETE', route('card.delete', ['id' => $card->id]));
+        $responseRaw = $this->response->getContent();
+        $response = json_decode($responseRaw, true);
+
+        $this->assertResponseStatus(202);
+        $this->assertJson($responseRaw);
+        $this->assertFalse($this->response->isEmpty());
+        $this->assertIsArray($response);
+        $this->assertArrayHasKey('message', $response);
+        $this->assertEquals(CardController::RESOURCE_DELETED_MESSAGE, $response['message']);
     }
 }

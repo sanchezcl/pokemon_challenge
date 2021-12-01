@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use App\Http\Resources\ErrorResource;
-use http\Exception\UnexpectedValueException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
