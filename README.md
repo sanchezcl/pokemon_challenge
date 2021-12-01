@@ -1,24 +1,127 @@
-# Lumen PHP Framework
+# Agree Pokemon Challenge
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+Este Challenge fue desarrollado en PHP con el Framwork Lumen.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-## Official Documentation
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+### Pre-requisitos 📋
 
-## Contributing
+Para instalar correctamente el proyecto es necesario tener instalado docker y docker-compose correctamente
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Instalación 🔧
 
-## Security Vulnerabilities
+Clonar el repositorio 
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```
+git clone --recursive git@github.com:sanchezcl/pokemon_challenge.git
+## --recursive permite que se descarguen los submodulos del proyecto
+```
 
-## License
+El submodulo little-laradock es una version simplificada de Laradock un docker prearmado para proyectos con Laravel/Lumen
+Entrar en la carpeta del little-laradock
+```
+cd little-laradock
+```
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Copiar el archivo de configuracion del little-laradock .env-example como .env
+```
+ cp .env-example .env
+```
+
+Verificar que las siguientes variables tenga los valores listados:
+```
+APP_CODE_PATH_HOST=../code
+.
+.
+.
+MYSQL_DATABASE=agree
+MYSQL_USER=default
+MYSQL_PASSWORD=secret
+MYSQL_PORT=3306
+```
+
+Modificar la configuracion en el nginx editando nginx/sites/default.conf editando 'server_name' 
+:
+```
+    server_name agm.test;
+```
+
+Agregar al final del archivo /etc/hosts la url agm.test
+```
+    127.0.0.1 agm.test
+```
+
+Haber un build con el docker-compose, puedes ir a tomar una :coffee:	
+```
+docker-compose build mysql nginx workspace
+```
+
+Una vez finalice levantar los containers
+```
+docker-compose up -d mysql nginx workspace
+```
+
+Luego entrar al container workspace:
+```
+# el nombre del container (laradock_workspace_1) puede cambiar,
+# asegurarse que es el correcto
+
+docker exec -itu 1000  laradock_workspace_1 bash
+```
+
+Copiar el archivo .env.example del proyecto de lumen
+```
+cp .env.example .env
+```
+
+Editar en el proyecto de lumen el .env con las siguientes variables y valores
+```
+APP_NAME=agree-challenge
+.
+.
+.
+APP_URL=http://agm.test
+.
+.
+.
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=default
+DB_USERNAME=default
+DB_PASSWORD=secret
+```
+
+Hacer la instalacion de los paquetes con composer:
+```
+composer install
+```
+
+Ejecutar las migraciones y seeders con los datos de ejemplo
+```
+artisan migrate --seed
+```
+
+(Opcional) Importar las colleccoines que se usaron para el desarrollo en postman
+
+
+## Ejecutando las pruebas
+
+Los test se pueden ejecutar entrando al container workspace y ejecutando:
+```
+phpunit tests/
+```
+
+## Documentacion
+
+Las colleciones de postman se encuentran en la carpeta "documents"
+
+La documentacion con swagger se encuentra en la ruta:
+```
+agm.test/api/documentation
+```
+
+Endpoint principal 
+```
+https://lit-lake-49375.herokuapp.com/
+```
