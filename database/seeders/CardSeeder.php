@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Card;
+use App\Models\PokemonType;
 use Carbon\Carbon;
+use Database\Factories\CardFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -59,6 +61,11 @@ class CardSeeder extends Seeder
             unset($card_attributes['card_pokemon_types']);
             Card::create($card_attributes)->pokemonTypes()->attach($type_ids);
         });
+
+        Card::factory()->count(20)->afterCreating(function ($row, $faker) {
+            $pokemon_types = PokemonType::all()->random(rand(1,3))->pluck('id');
+            $row->pokemonTypes()->attach($pokemon_types);
+        })->create();
 
     }
 
