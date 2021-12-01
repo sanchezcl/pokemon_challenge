@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "f2ebc96b-451c-4bd9-bbfd-6d6d343c81f4",
+		"name": "Agree Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "status/info",
+			"item": [
+				{
+					"name": "root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{endpoint}}/",
+							"protocol": "http",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "isAlive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/is_alive",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"is_alive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "enums",
+			"item": [
+				{
+					"name": "List card_rarities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/card_rarities",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"card_rarities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List expansion_set",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/expansion_set",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"expansion_set"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List pokemon_type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/pokemon_type",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"pokemon_type"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "List cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/cards/?filter[name]=charizard&sort=price:desc&page=1",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								""
+							],
+							"query": [
+								{
+									"key": "filter[name]",
+									"value": "charizard",
+									"description": "field1:direction, field2:direction"
+								},
+								{
+									"key": "filter[is_taken]",
+									"value": "0",
+									"description": "field1:direction, field2:direction",
+									"disabled": true
+								},
+								{
+									"key": "filter[expansionSet]",
+									"value": "base set 2",
+									"description": "field1:direction, field2:direction",
+									"disabled": true
+								},
+								{
+									"key": "filter[pokemonTypes]",
+									"value": "grass",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "price:desc",
+									"description": "price:desc,name:asc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show card data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/cards/:cardId",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store new Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"health_points\": \"160\",\n    \"is_first_edition\": 1,\n    \"is_taken\": 0,\n    \"expansion_set\": 1,\n    \"pokemon_type\": [1,4,12],\n    \"card_rarity\": 2,\n    \"price\": 10.75,\n    \"image_url\": \"{{$randomUrl}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/cards/",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"card_data\": \"data\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/cards/:cardId",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ivysaur\",\n    \"health_points\": \"100\",\n    \"is_first_edition\": false,\n    \"is_taken\": 0,\n    \"expansion_set\": 1,\n    \"pokemon_type\": [4,12],\n    \"card_rarity\": 2,\n    \"price\": 11.75,\n    \"image_url\": \"https://den-cards.pokellector.com/119/Ivysaur.BS.30.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/cards/:cardId",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manage Cards",
+			"item": [
+				{
+					"name": "Take Card",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/cards/:id/take",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								":id",
+								"take"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return Card",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/cards/:id/return",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								":id",
+								"return"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return all",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/cards/return_all",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"cards",
+								"return_all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
