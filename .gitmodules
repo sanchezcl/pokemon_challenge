@@ -1,0 +1,3 @@
+[submodule "little-laradock"]
+	path = little-laradock
+	url = git@github.com:sanchezcl/little-laradock.git
